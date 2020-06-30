@@ -29,6 +29,4 @@ class Profile(models.Model):
 
             img.save(self.image.path,)
 #------------------------------------------------------------#
-    #add company goals, position, bio, date of birth, SSN, Address
-    def UserInf(self):
-        pass
+    
