@@ -13,7 +13,7 @@ class Profile(models.Model):
 
         return f'{self.user.username} Profile'
 
-#-----------------------------------------------------------------------------#
+#----------------------------------------------------------#
     def save(self, *args, **kwargs):
 
         super(Profile, self).save(*args, **kwargs)
@@ -28,7 +28,7 @@ class Profile(models.Model):
             img.thumbnail(output_size)
 
             img.save(self.image.path,)
-
+#------------------------------------------------------------#
     #add company goals, position, bio, date of birth, SSN, Address
     def UserInf(self):
         pass
