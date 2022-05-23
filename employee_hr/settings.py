@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'reset_migrations',
 
 ]
 
@@ -82,13 +83,18 @@ WSGI_APPLICATION = 'employee_hr.wsgi.application'
 
 
 
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #}
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
+
+
+
+"""
+#Postgress confg
 DATABASES = {
 
     'default': {
@@ -108,7 +114,8 @@ DATABASES = {
     }
 
 }
-
+"""
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Password validation

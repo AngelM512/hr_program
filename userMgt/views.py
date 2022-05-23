@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.template import RequestContext
 #from django.core.mail import send_mail
 from .forms import UserRegisterForm, UserUpdateForm, UpdateProfileForm
 
@@ -18,7 +19,7 @@ def register(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
                                     # if user was created successfully then,
-            return redirect('login')    # take client to the loginpage
+            return redirect('login-home')    # take client to the loginpage
 
 
     else:

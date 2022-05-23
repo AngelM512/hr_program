@@ -1,19 +1,49 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+
+
+
 # Create your models here.
+class Company(models.Model):
+    #add category
+    name    = models.CharField(blank=True, max_length=45)
+    address = models.CharField(blank=True, max_length=255)
 
-class Profile(models.Model):
+    def __str__(self):
+        return self.name
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
+class Employee(models.Model):
+    first_name    = models.CharField(max_length=20,blank=False)
+    last_name     = models.CharField(max_length=20,blank=False)
+    prefered_name = models.CharField(max_length=20,blank=True)
+    birth_date    = models.DateField()
+    gender        = models.CharField(max_length=1)
+    salary        = models.IntegerField()
+    hired_date    = models.DateField()
+    department    = models.CharField(max_length=45)
+
+    def __str__(self) -> str:
+        return (self.first_name +' '+ self.last_name)
+
+
+
+class Profile(models.Model): #company's profile model
+
+    user    = models.OneToOneField(User, on_delete=models.CASCADE)
+    image   = models.ImageField(default='default.jpeg', upload_to='profile_pics')
+    company = models.OneToOneField(
+                Company, 
+                on_delete=models.CASCADE,
+                null=True,
+                blank=True,
+            )
 
     def __str__(self):
 
         return f'{self.user.username} Profile'
 
-#----------------------------------------------------------#
     def save(self, *args, **kwargs):
 
         super(Profile, self).save(*args, **kwargs)
@@ -28,5 +58,7 @@ class Profile(models.Model):
             img.thumbnail(output_size)
 
             img.save(self.image.path,)
-#------------------------------------------------------------#
     
+
+
+

@@ -1,9 +1,11 @@
 from . import views as view
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
+from userMgt import views as userMgtViews
 
 urlpatterns = [
-    path('', view.PostListView.as_view(), name='blog-home'),
+    path('', auth_views.LoginView.as_view(template_name='userMgt/login.html'), name='login-home'),
+    path('blog/', view.PostListView.as_view(), name='blog-home'),
     path('user/<str:username>/', view.UserPostListView.as_view(), name='user-posts'),
     path('post/<int:pk>/', view.PostDetailView.as_view(), name='post-detail'),
     path('post/new/', view.PostCreateView.as_view(), name='post-create'),
