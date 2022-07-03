@@ -1,20 +1,20 @@
 # HR ADMIN PROGRAM
 
-#About the software
+## About the software
 
 This software allows the employer to administer its employees,
 and the employer can sign up as a company and register its employees by department. 
 Moreover, this program enables the employer to register its employees 
 in a database base on age, hired date, department, payroll, and personal information such as SSN, address, etc.
 
-#Built With:
+### Built With:
 Technologies I have been using: Django, bootstrap, and PostgreSQL. 
 
-#Disclaimer
+### Disclaimer
 This program is far from perfect, but still working on it, still applying changes.
 
 
-#Licensing
+### Licensing
 Copyright [2022] [Angel A Moreta]
 
 Licensed under the Apache License, Version 2.0 (the "License");
