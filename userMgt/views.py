@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.template import RequestContext
 #from django.core.mail import send_mail
+from .models import Company
 from .forms import UserRegisterForm, UserUpdateForm, UpdateProfileForm
 
 
@@ -16,8 +17,19 @@ def register(request):
 
         if form.is_valid(): # is the form provided valid ? if true, then...
             form.save() #save/create user in the database
+
+
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
+
+
+            #TODO: FIX --> create company
+            company_name = form.cleaned_data.get('company_name')
+            company_addy = form.cleaned_data.get('company_address')
+
+            company_inst = Company.objects.create(name = company_name, address = company_addy)
+            company_inst.save()
+            
                                     # if user was created successfully then,
             return redirect('login-home')    # take client to the loginpage
 
@@ -27,6 +39,9 @@ def register(request):
 
     return render(request, 'userMgt/register.html', { 'form':form } )
 
+
+def create_company(request):
+    pass
 
 @login_required(login_url='/login/') # must loging in order to have access to your profile
 def profile(request):

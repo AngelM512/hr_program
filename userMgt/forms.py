@@ -6,18 +6,24 @@ from .models import Profile, Company
 class UserRegisterForm(UserCreationForm):
 
     email = forms.EmailField()
-    company = forms.CharField(max_length=45)
-    deparment = forms.CharField(max_length=45)
-
+    
+    #company information under HR user creator
+    company_name = forms.CharField(max_length=25)
+    company_address = forms.CharField(max_length=45)
+    
     class Meta:
+ 
         model = User
+
         fields = [  
                     'username',
                     'email',
                     'password1',
                     'password2',
+                    'company_name',
+                    'company_address'
                     ] 
-
+    
 
 
 #user update form for username and email
@@ -37,4 +43,4 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
 
         model = Profile
-        fields = ['image','company', ]
+        fields = ['image','company' ]
