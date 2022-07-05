@@ -4,7 +4,14 @@ from PIL import Image
 
 
 
-# Create your models here.
+
+class Company(models.Model):
+    name    = models.CharField(blank=True, max_length=45)
+    address = models.CharField(blank=True, max_length=255)
+    def __str__(self):
+        return self.name
+
+
 
 class Employee(models.Model):
     first_name    = models.CharField(max_length=20,blank=False)
@@ -16,19 +23,16 @@ class Employee(models.Model):
     hired_date    = models.DateField()
     department    = models.CharField(max_length=45)
 
+    company = models.ForeignKey(Company,
+                                on_delete=models.CASCADE,
+                                blank=True,
+                                null=True,
+                                )
+
     def __str__(self) -> str:
         return (self.first_name +' '+ self.last_name)
 
-class Company(models.Model):
-    name    = models.CharField(blank=True, max_length=45)
-    address = models.CharField(blank=True, max_length=255)
-    employee = models.ForeignKey(Employee, 
-                                on_delete=models.CASCADE,
-                                blank=True,
-                                null=True)
-    
-    def __str__(self):
-        return self.name
+
 
 class Profile(models.Model): #company's profile model
 
