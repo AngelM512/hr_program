@@ -1,3 +1,4 @@
+import email
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -22,6 +23,7 @@ class Employee(models.Model):
     salary        = models.IntegerField()
     hired_date    = models.DateField()
     department    = models.CharField(max_length=45)
+    email         = models.EmailField(max_length=254, blank=True)
 
     company = models.ForeignKey(Company,
                                 on_delete=models.CASCADE,
@@ -35,7 +37,6 @@ class Employee(models.Model):
 
 
 class Profile(models.Model): #company's profile model
-
     user    = models.OneToOneField(User, on_delete=models.CASCADE)
     image   = models.ImageField(default='default.jpeg', upload_to='profile_pics')
     company = models.OneToOneField(

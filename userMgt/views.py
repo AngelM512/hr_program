@@ -40,9 +40,6 @@ def register(request):
     return render(request, 'userMgt/register.html', { 'form':form } )
 
 
-def create_company(request):
-    pass
-
 @login_required(login_url='/login/') # must loging in order to have access to your profile
 def profile(request):
     if request.method == 'POST':
@@ -69,3 +66,12 @@ def profile(request):
         'Pform': Pform,
     }
     return render(request, 'userMgt/profile.html', context)
+
+
+#-------------------------------------------------------------------------------------#
+
+def create_company(request):
+    pass
+
+def get_company_employees(request):
+    return render(request, 'userMgt/manage_employees.html', {})
