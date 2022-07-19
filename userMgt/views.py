@@ -1,12 +1,11 @@
+from typing import Any
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.template import RequestContext
-#from django.core.mail import send_mail
-from .models import Company
+from .models import Company, Profile
 from .forms import UserRegisterForm, UserUpdateForm, UpdateProfileForm
-
-
+from django.contrib.auth.models import User
 # Create your views here.
 
 def register(request):
@@ -30,6 +29,13 @@ def register(request):
             company_inst = Company.objects.create(name = company_name, address = company_addy)
             company_inst.save()
             
+            #TODO: **** Associate company with employer account *****
+            print("\n\nusername: ", username)
+            all_pf_objects = Profile.objects.all()
+   
+            #call main fnx user, get the register user, then assign company
+
+
                                     # if user was created successfully then,
             return redirect('login-home')    # take client to the loginpage
 
