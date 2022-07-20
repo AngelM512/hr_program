@@ -26,7 +26,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', userMgt_views.register, name='register'),
     path('profile/', userMgt_views.profile, name='profile'),
+
+
+
+    path('company/', userMgt_views.company_view, name='company'),
     path('manage/', userMgt_views.get_company_employees, name='manage'),
+
+
     path('login/', auth_views.LoginView.as_view(template_name='userMgt/login.html'), name='login-home'),
     path('logout/', auth_views.LogoutView.as_view(template_name='userMgt/logout.html'), name='logout'),
     path('password-reset/',

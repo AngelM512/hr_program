@@ -19,23 +19,22 @@ def register(request):
 
 
             username = form.cleaned_data.get('username')
+            id_username =form.cleaned_data.get('id_username')
             messages.success(request, f'Account created for {username}!')
+            
+            
+            #get user
+            pf_qs = Profile.objects.all()
+            pf_created = Profile.objects.filter(user__username = username)
 
-
-            #TODO: FIX --> create company
+            #create company + save the company object + instantiate user to company
             company_name = form.cleaned_data.get('company_name')
             company_addy = form.cleaned_data.get('company_address')
-
-            company_inst = Company.objects.create(name = company_name, address = company_addy)
+            company_inst = Company.objects.create(name = company_name, 
+                                                address = company_addy, 
+                                                profile = pf_created[0])
             company_inst.save()
             
-            #TODO: **** Associate company with employer account *****
-            print("\n\nusername: ", username)
-            all_pf_objects = Profile.objects.all()
-   
-            #call main fnx user, get the register user, then assign company
-
-
                                     # if user was created successfully then,
             return redirect('login-home')    # take client to the loginpage
 
@@ -75,9 +74,10 @@ def profile(request):
 
 
 #-------------------------------------------------------------------------------------#
-
-def create_company(request):
-    pass
+# company view will be able to create and manage company, see tools, employees etc.. 
+def company_view(request):
+    context = {}
+    return render(request, 'userMgt/company.html', context=context)
 
 def get_company_employees(request):
     return render(request, 'userMgt/manage_employees.html', {})
