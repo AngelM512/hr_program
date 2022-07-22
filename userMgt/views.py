@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.template import RequestContext
 from .models import Company, Profile
 from .forms import UserRegisterForm, UserUpdateForm, UpdateProfileForm
-from django.contrib.auth.models import User
 # Create your views here.
 
 def register(request):
@@ -60,7 +59,7 @@ def profile(request):
             Pform.save()
             #provide user with some feedback
             messages.success(request, 'Profile has been updated!')
-            return redirect('blog-home') #take user to the homepage
+            return redirect('company') #take user to the company's page
 
     else:
         Uform = UserUpdateForm(instance=request.user)
@@ -76,8 +75,17 @@ def profile(request):
 #-------------------------------------------------------------------------------------#
 # company view will be able to create and manage company, see tools, employees etc.. 
 def company_view(request):
-    context = {}
+  
+    # GET company query of request.user of the user currently logged in
+    query_set = Company.objects.filter(profile__user=request.user)
+    context = {
+        'company_qs' : query_set,
+    }
+    
     return render(request, 'userMgt/company.html', context=context)
+
+
+
 
 def get_company_employees(request):
     return render(request, 'userMgt/manage_employees.html', {})

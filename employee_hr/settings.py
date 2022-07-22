@@ -158,7 +158,7 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_REDIRECT_URL = 'company'
 
 #save image in the system
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
