@@ -71,28 +71,14 @@ class Employee(models.Model):
 
 
  #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
-    class Assing_Role(models.TextChoices):
-        ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
+class Assing_Role(models.TextChoices):
+
+    ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
         
-        MANAGEMENT = '2','management' #SUPERVISOR/MANAGER/CEO WILL HAVE LIMITED PERMISSIONS WITHIN THE COMPANY
+    MANAGEMENT = '2','management' #SUPERVISOR/MANAGER/CEO WILL HAVE LIMITED PERMISSIONS WITHIN THE COMPANY
 
-        EMPLOYEE ='3','employee' #W2 REGULAR
+    EMPLOYEE ='3','employee' #W2 REGULAR
   
-    #configurations of Company_Membership
-    class Meta:
-
-       #constraints: same user_id can exist/work in different 
-       # companys but there can be two user_id with same id 
-       # working in the same company. 
-        constraints = [
-            
-            models.UniqueConstraint(
-                fields=['user','company'],
-                name='unique_user_to_company_relation', )
-            ]
-
-
-        #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
 
 
 
@@ -113,33 +99,35 @@ class Company_Membership(models.Model):
 
 
 
-
-
     #COLUMMS ON THE DB 
     #get user,company,role and make a relationship
-    user = models.ForeignKey(User,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(   User,
+                                on_delete=models.CASCADE
+                                )
     
-    company = models.ForeignKey(Company,
+    company = models.ForeignKey(   Company,
                                    on_delete=models.CASCADE,
                                    null=False,
                                    )
-    role = models.CharField(max_length=20, blank=False, choices=Assing_Role.choices, default=Assing_Role.EMPLOYEE)
-
-     
-     
+    role = models.CharField(    max_length=20,
+                                blank=False,
+                                choices=Assing_Role.choices, 
+                                default=Assing_Role.EMPLOYEE
+                             )
      
      #configurations of Company_Membership
+    
     class Meta:
 
-       #constraints: same user_id can exist/work in different 
-       # companys but there can be two user_id with same id 
-       # working in the same company. 
-        constraints = [
-            
-            models.UniqueConstraint(
+        #constraints: same user_id can exist/work in different 
+        # companys but there can be two user_id with same id 
+        # working in the same company. 
+            constraints = [
+                
+                models.UniqueConstraint(
                 fields=['user','company'],
                 name='unique_user_to_company_relation', )
-            ]
+                ]
 
-            
+                
+
