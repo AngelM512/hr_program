@@ -70,26 +70,7 @@ class Employee(models.Model):
         return (self.first_name +' '+ self.last_name)
 
 
-
-
-#Update: introduce a company membership model that 
-#associates User and its correcding id to many companys id
-#and give it a role as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
-class Company_Membership(models.Model):
-
-
-    #get user,company,role and make a relationship
-    user = models.ForeignKey(User,
-                             on_delete=models.CASCADE)
-    
-    company = models.ForeignKey(Company,
-                                   on_delete=models.CASCADE,
-                                   null=False,
-                                   )
-    role = models.CharField(max_length=20, blank=False)
-
-
-    #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
+ #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
     class Assing_Role(models.TextChoices):
         ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
         
@@ -110,13 +91,55 @@ class Company_Membership(models.Model):
                 name='unique_user_to_company_relation', )
             ]
 
-    choices = models.CharField(max_length=2,
-                choices=Assing_Role.choices,
-                default=Assing_Role.EMPLOYEE)
-                
+
         #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
 
 
 
+
+
+#Update: introduce a company membership model that 
+#associates User and its correcding id to many companys id
+#and give it a role as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
+class Company_Membership(models.Model):
+    
+    #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
+    class Assing_Role(models.TextChoices):
+        ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
+        
+        MANAGEMENT = '2','management' #SUPERVISOR/MANAGER/CEO WILL HAVE LIMITED PERMISSIONS WITHIN THE COMPANY
+
+        EMPLOYEE ='3','employee' #W2 REGULAR
+
+
+
+
+
+    #COLUMMS ON THE DB 
+    #get user,company,role and make a relationship
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE)
+    
+    company = models.ForeignKey(Company,
+                                   on_delete=models.CASCADE,
+                                   null=False,
+                                   )
+    role = models.CharField(max_length=20, blank=False, choices=Assing_Role.choices, default=Assing_Role.EMPLOYEE)
+
+     
+     
+     
+     #configurations of Company_Membership
+    class Meta:
+
+       #constraints: same user_id can exist/work in different 
+       # companys but there can be two user_id with same id 
+       # working in the same company. 
+        constraints = [
+            
+            models.UniqueConstraint(
+                fields=['user','company'],
+                name='unique_user_to_company_relation', )
+            ]
 
             
