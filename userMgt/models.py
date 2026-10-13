@@ -89,7 +89,14 @@ class Company_Membership(models.Model):
     role = models.CharField(max_length=20, blank=False)
 
 
+    #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
+    class Assing_Role(models.TextChoices):
+        ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
+        
+        MANAGEMENT = '2','management' #SUPERVISOR/MANAGER/CEO WILL HAVE LIMITED PERMISSIONS WITHIN THE COMPANY
 
+        EMPLOYEE ='3','employee' #W2 REGULAR
+  
     #configurations of Company_Membership
     class Meta:
 
@@ -99,12 +106,14 @@ class Company_Membership(models.Model):
         constraints = [
             
             models.UniqueConstraint(
-                
                 fields=['user','company'],
-                name='unique_user_to_company_relation',
-            )
-            
+                name='unique_user_to_company_relation', )
             ]
+
+    choices = models.CharField(max_length=2,
+                choices=Assing_Role.choices,
+                default=Assing_Role.EMPLOYEE)
+                
         #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
 
 
