@@ -70,19 +70,6 @@ class Employee(models.Model):
         return (self.first_name +' '+ self.last_name)
 
 
- #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
-class Assing_Role(models.TextChoices):
-
-    ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
-        
-    MANAGEMENT = '2','management' #SUPERVISOR/MANAGER/CEO WILL HAVE LIMITED PERMISSIONS WITHIN THE COMPANY
-
-    EMPLOYEE ='3','employee' #W2 REGULAR
-  
-
-
-
-
 
 #Update: introduce a company membership model that 
 #associates User and its correcding id to many companys id
