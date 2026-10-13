@@ -4,11 +4,6 @@ from django.contrib.auth.models import User
 from PIL import Image
 
 
-
-
-
-
-
 class Profile(models.Model): #company's profile model
     user    = models.OneToOneField(User, on_delete=models.CASCADE)
     image   = models.ImageField(default='default.jpeg', upload_to='profile_pics')
@@ -33,12 +28,18 @@ class Profile(models.Model): #company's profile model
 
             img.save(self.image.path,)
     
+# def Company_member():
 
-
+#
+#
+#
+#
 class Company(models.Model):
     name    = models.CharField(blank=True, max_length=45)
     address = models.CharField(blank=True, max_length=255)
-    profile = models.OneToOneField(Profile,
+    
+    #UPDATE: profile now 
+    profile = models.ForeignKey(Profile,
                                 on_delete=models.CASCADE,
                                 null=True,
                                 blank=True, 
@@ -70,3 +71,43 @@ class Employee(models.Model):
 
 
 
+
+#Update: introduce a company membership model that 
+#associates User and its correcding id to many companys id
+#and give it a role as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
+class Company_Membership(models.Model):
+
+
+    #get user,company,role and make a relationship
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE)
+    
+    company = models.ForeignKey(Company,
+                                   on_delete=models.CASCADE,
+                                   null=False,
+                                   )
+    role = models.CharField(max_length=20, blank=False)
+
+
+
+    #configurations of Company_Membership
+    class Meta:
+
+       #constraints: same user_id can exist/work in different 
+       # companys but there can be two user_id with same id 
+       # working in the same company. 
+        constraints = [
+            
+            models.UniqueConstraint(
+                
+                fields=['user','company'],
+                name='unique_user_to_company_relation',
+            )
+            
+            ]
+        #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
+
+
+
+
+            

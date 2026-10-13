@@ -35,13 +35,14 @@ INSTALLED_APPS = [
     'userMgt.apps.UsermgtConfig',
     'blog.apps.BlogConfig',
     'crispy_forms',
+    'crispy_bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reset_migrations',
+    #'reset_migrations',
 
 ]
 
@@ -156,6 +157,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'company'

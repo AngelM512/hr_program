@@ -16,15 +16,13 @@ def register(request):
         if form.is_valid(): # is the form provided valid ? if true, then...
             form.save() #save/create user in the database
 
-
             username = form.cleaned_data.get('username')
             id_username =form.cleaned_data.get('id_username')
             messages.success(request, f'Account created for {username}!')
-            
-            
+
             #get user
             pf_qs = Profile.objects.all()
-            pf_created = Profile.objects.filter(user__username = username)
+            pf_created = Profile.objects.filter(user__username = username) #
 
             #create company + save the company object + instantiate user to company
             company_name = form.cleaned_data.get('company_name')
@@ -33,10 +31,8 @@ def register(request):
                                                 address = company_addy, 
                                                 profile = pf_created[0])
             company_inst.save()
-            
                                     # if user was created successfully then,
             return redirect('login-home')    # take client to the loginpage
-
 
     else:
         form = UserRegisterForm()
@@ -71,7 +67,6 @@ def profile(request):
     }
     return render(request, 'userMgt/profile.html', context)
 
-
 #-------------------------------------------------------------------------------------#
 # company view will be able to create and manage company, see tools, employees etc.. 
 def company_view(request):
@@ -83,9 +78,6 @@ def company_view(request):
     }
     
     return render(request, 'userMgt/company.html', context=context)
-
-
-
 
 def get_company_employees(request):
     return render(request, 'userMgt/manage_employees.html', {})
