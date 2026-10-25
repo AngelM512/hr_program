@@ -28,14 +28,11 @@ class Profile(models.Model): #company's profile model
 
             img.save(self.image.path,)
     
-# def Company_member():
 
-#
-#
-#
-#
 class Company(models.Model):
+    
     name    = models.CharField(blank=True, max_length=45)
+    
     address = models.CharField(blank=True, max_length=255)
     
     #UPDATE: profile now 
@@ -50,14 +47,23 @@ class Company(models.Model):
 
 
 class Employee(models.Model):
+    
     first_name    = models.CharField(max_length=20,blank=False)
+    
     last_name     = models.CharField(max_length=20,blank=False)
+    
     prefered_name = models.CharField(max_length=20,blank=True)
+    
     birth_date    = models.DateField()
+    
     gender        = models.CharField(max_length=1)
+    
     salary        = models.IntegerField()
+    
     hired_date    = models.DateField()
+    
     department    = models.CharField(max_length=45)
+    
     email         = models.EmailField(max_length=254, blank=True)
 
     company = models.ForeignKey(Company,
@@ -76,10 +82,11 @@ class Employee(models.Model):
 #and give it a role as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
 class Company_Membership(models.Model):
     
-    #assign roles  as ADMIN, SUPERVISOR/MANAGER OF COMPANY, W2_EMPLOYEE
-    class Assing_Role(models.TextChoices):
-        ADMIN = '1','admin' #NO PERMISSIONS IT IS GOD
-        
+
+    class Assing_Role(models.TextChoices): ## Links users to companies and stores their role within each company.
+        # Full company access; permissions will be enforced in the views.
+        ADMIN = '1','admin' #Highest in the hirerqui 
+
         MANAGEMENT = '2','management' #SUPERVISOR/MANAGER/CEO WILL HAVE LIMITED PERMISSIONS WITHIN THE COMPANY
 
         EMPLOYEE ='3','employee' #W2 REGULAR
@@ -91,7 +98,6 @@ class Company_Membership(models.Model):
     user = models.ForeignKey(   User,
                                 on_delete=models.CASCADE
                                 )
-    
     company = models.ForeignKey(   Company,
                                    on_delete=models.CASCADE,
                                    null=False,
@@ -103,18 +109,17 @@ class Company_Membership(models.Model):
                              )
      
      #configurations of Company_Membership
-    
     class Meta:
 
         #constraints: same user_id can exist/work in different 
         # companys but there can be two user_id with same id 
         # working in the same company. 
-            constraints = [
-                
-                models.UniqueConstraint(
-                fields=['user','company'],
-                name='unique_user_to_company_relation', )
-                ]
+        constraints = [
+            
+            models.UniqueConstraint(
+            fields=['user','company'],
+            name='unique_user_to_company_relation', )
+            ]
 
                 
 

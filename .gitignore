@@ -1,3 +1,7 @@
-static_in_env
-env
+db.sqlite3
+*.sqlite3
 .env
+.venv/
+venv/
+__pycache__/
+*.pyc

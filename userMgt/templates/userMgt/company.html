@@ -8,6 +8,7 @@
    {%for obj in company_qs%}
       <h1><a href="{% url 'profile' %}">{{obj.profile}}</a></h1>
       <h1>{{obj.name|upper}}</h1>
+      <h1><a href="{%url 'company'%}?company_id={{obj.company_id}}">{{obj.company}}</a></h1>
       <h1><a href="#">Manage Employees</a></h1>
       <h1><a href="#">Announcements/blogs</a></h1>
    {%endfor%}
